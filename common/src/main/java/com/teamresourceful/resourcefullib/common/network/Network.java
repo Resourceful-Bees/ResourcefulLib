@@ -105,8 +105,6 @@ public class Network implements Networking {
      *
      * @param player The player to check.
      * @return True if the player can receive packets from this channel, false otherwise.
-     *
-     * @implNote On forge this will only check if it has the channel not if it can receive that specific packet.
      */
     @Override
     public final boolean canSendToPlayer(ServerPlayer player, PacketType<?> type) {
