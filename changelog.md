@@ -1,3 +1,7 @@
+# -----{ 3.0.12 }-----
+
+1.21.3
+
 # -----{ 3.0.11 }-----
 
 Improved performance for certain UI render utilities.
