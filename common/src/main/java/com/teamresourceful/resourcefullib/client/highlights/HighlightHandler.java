@@ -14,6 +14,7 @@ import it.unimi.dsi.fastutil.objects.Reference2ReferenceMap;
 import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -35,7 +36,7 @@ public class HighlightHandler extends SimpleJsonResourceReloadListener<JsonEleme
     public static final Codec<Highlight> HIGHLIGHT_CODEC = ResourceLocation.CODEC.xmap(HighlightHandler::getOrThrow, Highlight::id);
 
     public HighlightHandler() {
-        super(ExtraCodecs.JSON, "resourcefullib/highlights");
+        super(ExtraCodecs.JSON,  FileToIdConverter.json("resourcefullib/highlights"));
     }
 
     @Override

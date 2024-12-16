@@ -69,5 +69,3 @@ dependencies {
     modImplementation "com.teamresourceful.resourcefullib:resourcefullib-forge-${minecraft}:${version}"
 }
 ```
-
-TODO: Add Jar-in-Jar syntax

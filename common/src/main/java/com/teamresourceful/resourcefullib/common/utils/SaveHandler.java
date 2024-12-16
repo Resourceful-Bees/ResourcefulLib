@@ -3,7 +3,6 @@ package com.teamresourceful.resourcefullib.common.utils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
@@ -50,12 +49,13 @@ public abstract class SaveHandler extends SavedData {
         }
 
         public static <T extends SaveHandler> HandlerType<T> create(T clientSide, Supplier<T> creator) {
+            // https://github.com/neoforged/NeoForge/blob/1.21.x/patches/net/minecraft/world/level/storage/DimensionDataStorage.java.patch
+            // https://github.com/FabricMC/fabric/blob/1.21.4/fabric-object-builder-api-v1/src/main/java/net/fabricmc/fabric/mixin/object/builder/PersistentStateManagerMixin.java
             return new HandlerType<>(clientSide, new Factory<>(creator, (tag, provider) -> {
                 T handler = creator.get();
                 handler.loadData(tag);
                 return handler;
-            }, DataFixTypes.OPTIONS));
-            //TODO minecraft forge is dumb so useless datafixer is needed, fabric and neo both allow null
+            }, null));
         }
 
     }

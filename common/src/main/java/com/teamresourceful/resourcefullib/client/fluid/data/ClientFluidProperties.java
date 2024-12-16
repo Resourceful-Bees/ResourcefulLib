@@ -1,7 +1,7 @@
 package com.teamresourceful.resourcefullib.client.fluid.data;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Function3;
 import com.mojang.datafixers.util.Function6;
 import net.minecraft.client.Camera;
@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,32 +32,22 @@ public interface ClientFluidProperties {
 
     ResourceLocation screenOverlay();
 
-    default void renderOverlay(Minecraft minecraft, PoseStack stack) {
+    default void renderOverlay(Minecraft minecraft, PoseStack stack, MultiBufferSource source) {
         ResourceLocation texture = screenOverlay();
         if (texture != null) {
             Player player = minecraft.player;
-            RenderSystem.setShader(CoreShaders.POSITION_TEX);
-            RenderSystem.setShaderTexture(0, texture);
-
             BlockPos blockpos = BlockPos.containing(player.getX(), player.getEyeY(), player.getZ());
             float brightness = LightTexture.getBrightness(player.level().dimensionType(), player.level().getMaxLocalRawBrightness(blockpos));
+            int color = ARGB.colorFromFloat(0.1F, brightness, brightness, brightness);
 
-            BufferBuilder bufferbuilder = Tesselator.getInstance().begin(
-                    VertexFormat.Mode.QUADS,
-                    DefaultVertexFormat.POSITION_TEX
-            );
-            RenderSystem.enableBlend();
-            RenderSystem.setShaderColor(brightness, brightness, brightness, 0.1F);
-            float f7 = -player.getYRot() / 64.0F;
-            float f8 = player.getXRot() / 64.0F;
-            Matrix4f matrix4f = stack.last().pose();
-            bufferbuilder.addVertex(matrix4f, -1.0F, -1.0F, -0.5F).setUv(4.0F + f7, 4.0F + f8);
-            bufferbuilder.addVertex(matrix4f, 1.0F, -1.0F, -0.5F).setUv(0.0F + f7, 4.0F + f8);
-            bufferbuilder.addVertex(matrix4f, 1.0F, 1.0F, -0.5F).setUv(0.0F + f7, 0.0F + f8);
-            bufferbuilder.addVertex(matrix4f, -1.0F, 1.0F, -0.5F).setUv(4.0F + f7, 0.0F + f8);
-            BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableBlend();
+            float a = -player.getYRot() / 64.0F;
+            float b = player.getXRot() / 64.0F;
+            Matrix4f matrix = stack.last().pose();
+            VertexConsumer consumer = source.getBuffer(RenderType.blockScreenEffect(texture));
+            consumer.addVertex(matrix, -1.0F, -1.0F, -0.5F).setUv(4.0F + a, 4.0F + b).setColor(color);
+            consumer.addVertex(matrix, 1.0F, -1.0F, -0.5F).setUv(0.0F + a, 4.0F + b).setColor(color);
+            consumer.addVertex(matrix, 1.0F, 1.0F, -0.5F).setUv(0.0F + a, 0.0F + b).setColor(color);
+            consumer.addVertex(matrix, -1.0F, 1.0F, -0.5F).setUv(4.0F + a, 0.0F + b).setColor(color);
         }
     }
 

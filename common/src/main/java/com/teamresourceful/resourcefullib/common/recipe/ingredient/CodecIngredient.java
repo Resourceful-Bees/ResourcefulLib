@@ -5,15 +5,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public interface CodecIngredient<T extends CodecIngredient<T>> extends Predicate<@Nullable ItemStack> {
 
     @Override
     boolean test(@Nullable ItemStack stack);
 
-    List<Holder<Item>> getItems();
+    Stream<Holder<Item>> getStream();
 
     /**
      * Determines if this ingredient is complex.

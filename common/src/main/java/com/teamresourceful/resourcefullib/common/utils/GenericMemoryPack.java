@@ -2,15 +2,18 @@ package com.teamresourceful.resourcefullib.common.utils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import com.teamresourceful.resourcefullib.common.lib.Constants;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.metadata.MetadataSectionSerializer;
+import net.minecraft.server.packs.metadata.MetadataSectionType;
+import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.resources.IoSupplier;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,12 +28,18 @@ public abstract class GenericMemoryPack implements PackResources {
 
     private final Map<ResourceLocation, IoSupplier<InputStream>> data = new HashMap<>();
 
-    private final JsonObject metaData;
+    private final PackMetadataSection metaData;
     private final PackType allowedType;
     private final String id;
     private final PackLocationInfo info;
 
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.22")
     protected GenericMemoryPack(PackType type, String id, JsonObject meta) {
+        this(type, id, PackMetadataSection.CODEC.parse(JsonOps.INSTANCE, meta).getOrThrow());
+    }
+
+    protected GenericMemoryPack(PackType type, String id, PackMetadataSection meta) {
         this.metaData = meta;
         this.allowedType = type;
         this.id = id;
@@ -81,11 +90,12 @@ public abstract class GenericMemoryPack implements PackResources {
         return data.keySet().stream().map(ResourceLocation::getNamespace).collect(Collectors.toSet());
     }
 
-    @Nullable
     @Override
-    public <T> T getMetadataSection(@NotNull MetadataSectionSerializer<T> serializer) {
-        if (!serializer.getMetadataSectionName().equals("pack")) return null;
-        return serializer.fromJson(metaData);
+    public @Nullable <T> T getMetadataSection(MetadataSectionType<T> type) {
+        if (type.equals(PackMetadataSection.TYPE)) {
+            return (T) this.metaData;
+        }
+        return null;
     }
 
     @Override

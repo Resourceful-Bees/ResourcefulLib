@@ -18,7 +18,7 @@ import java.util.function.Supplier;
  * @deprecated Use {@link ResourcefulRegistries#createForItems(String)} or {@link ResourcefulRegistries#createForBlocks(String)}
  */
 @Deprecated
-@ApiStatus.ScheduledForRemoval(inVersion = "1.21.4")
+@ApiStatus.ScheduledForRemoval(inVersion = "1.21.5")
 public class ItemLikeResourcefulRegistry<T extends ItemLike> implements ResourcefulRegistry<T>  {
 
     private final ResourcefulRegistry<T> parent;

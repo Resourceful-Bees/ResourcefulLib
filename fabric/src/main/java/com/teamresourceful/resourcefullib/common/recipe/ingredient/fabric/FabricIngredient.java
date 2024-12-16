@@ -7,7 +7,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 public record FabricIngredient<T extends CodecIngredient<T>>(T ingredient) implements CustomIngredient {
 
@@ -17,8 +17,8 @@ public record FabricIngredient<T extends CodecIngredient<T>>(T ingredient) imple
     }
 
     @Override
-    public List<Holder<Item>> getMatchingItems() {
-        return this.ingredient.getItems();
+    public Stream<Holder<Item>> getMatchingItems() {
+        return this.ingredient.getStream();
     }
 
     @Override

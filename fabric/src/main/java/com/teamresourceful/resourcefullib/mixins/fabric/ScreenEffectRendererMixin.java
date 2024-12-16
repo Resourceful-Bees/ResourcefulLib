@@ -6,6 +6,7 @@ import com.teamresourceful.resourcefullib.client.fluid.fabric.EntityFluidEyesHoo
 import com.teamresourceful.resourcefullib.client.fluid.registry.ResourcefulClientFluidRegistry;
 import com.teamresourceful.resourcefullib.common.fluid.ResourcefulFlowingFluid;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ScreenEffectRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -18,13 +19,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ScreenEffectRendererMixin {
 
     @Inject(method = "renderScreenEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z", shift = At.Shift.BEFORE))
-    private static void rlib_renderScreenEffect(Minecraft minecraft, PoseStack poseStack, CallbackInfo ci) {
+    private static void rlib_renderScreenEffect(Minecraft minecraft, PoseStack poseStack, MultiBufferSource source, CallbackInfo ci) {
         Player player = minecraft.player;
         if (player instanceof EntityFluidEyesHook hook && hook.rlib$getEyesFluid() != null && hook.rlib$getEyesFluid().getType() instanceof ResourcefulFlowingFluid fluid) {
             ResourceLocation id = fluid.getData().id();
             ClientFluidProperties properties = ResourcefulClientFluidRegistry.get(id);
             if (properties != null) {
-                properties.renderOverlay(minecraft, poseStack);
+                properties.renderOverlay(minecraft, poseStack, source);
             }
         }
     }

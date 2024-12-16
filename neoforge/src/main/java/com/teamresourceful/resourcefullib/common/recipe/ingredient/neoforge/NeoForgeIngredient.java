@@ -21,7 +21,7 @@ public record NeoForgeIngredient<T extends CodecIngredient<T>>(T ingredient) imp
 
     @Override
     public @NotNull Stream<Holder<Item>> items() {
-        return this.ingredient.getItems().stream();
+        return this.ingredient.getStream();
     }
 
     @Override

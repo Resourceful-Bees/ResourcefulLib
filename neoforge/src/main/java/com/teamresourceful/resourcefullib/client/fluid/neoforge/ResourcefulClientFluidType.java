@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogParameters;
 import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -68,8 +69,8 @@ public record ResourcefulClientFluidType(ClientFluidProperties properties) imple
     }
 
     @Override
-    public void renderOverlay(@NotNull Minecraft mc, @NotNull PoseStack poseStack) {
-        properties().renderOverlay(mc, poseStack);
+    public void renderOverlay(@NotNull Minecraft mc, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffers) {
+        properties().renderOverlay(mc, poseStack, buffers);
     }
 
     @Override
