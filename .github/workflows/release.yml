@@ -127,7 +127,7 @@ jobs:
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
-          raw-data: ./build/release_embed.json
+          raw-data: ./build/embed.json
 
       - name: Commit Version Updates
         run: |

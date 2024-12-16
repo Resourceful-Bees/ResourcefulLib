@@ -1,3 +1,7 @@
+# -----{ 3.3.1 }-----
+
+Add support for specialized registries for items and blocks
+
 # -----{ 3.3.0 }-----
 
 1.21.3
