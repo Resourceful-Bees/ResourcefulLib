@@ -33,7 +33,7 @@ subprojects {
     }
 
     javaPublishing {
-        artifactId = "${rootProject.name}-${project.name}-${rootProject.libs.versions.minecraft.get()}".lowercase()
+        artifactId = "${rootProject.name}-${platform.name}-${rootProject.libs.versions.minecraft.get()}".lowercase()
 
         pom = GitHubPom(
             "ResourcefulLib",
