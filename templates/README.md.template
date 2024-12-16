@@ -32,7 +32,7 @@ You can then add our mod as a dependency:
 ```gradle
 dependencies {
     <--- Other dependencies here --->
-    implementation fg.deobf("com.teamresourceful.resourcefullib:resourcefullib-forge-${mc_version}:${version}")
+    implementation fg.deobf("com.teamresourceful.resourcefullib:resourcefullib-forge-${minecraft}:${version}")
 }
 ```
 
@@ -40,7 +40,7 @@ dependencies {
 ```gradle
 dependencies {
     <--- Other dependencies here --->
-    implementation "com.teamresourceful.resourcefullib:resourcefullib-fabric-${mc_version}:${version}"
+    implementation "com.teamresourceful.resourcefullib:resourcefullib-fabric-${minecraft}:${version}"
 }
 ```
 
@@ -50,7 +50,7 @@ dependencies {
 ```gradle
 dependencies {
     <--- Other dependencies here --->
-    modImplementation "com.teamresourceful.resourcefullib:resourcefullib-common-${mc_version}:${version}"
+    modImplementation "com.teamresourceful.resourcefullib:resourcefullib-common-${minecraft}:${version}"
 }
 ```
 
@@ -58,7 +58,7 @@ dependencies {
 ```gradle
 dependencies {
     <--- Other dependencies here --->
-    modImplementation "com.teamresourceful.resourcefullib:resourcefullib-fabric-${mc_version}:${version}"
+    modImplementation "com.teamresourceful.resourcefullib:resourcefullib-fabric-${minecraft}:${version}"
 }
 ```
 
@@ -66,7 +66,7 @@ dependencies {
 ```gradle
 dependencies {
     <--- Other dependencies here --->
-    modImplementation "com.teamresourceful.resourcefullib:resourcefullib-forge-${mc_version}:${version}"
+    modImplementation "com.teamresourceful.resourcefullib:resourcefullib-forge-${minecraft}:${version}"
 }
 ```
 

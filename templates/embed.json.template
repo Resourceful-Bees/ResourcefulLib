@@ -2,11 +2,31 @@
   "username": "Beekeeper",
   "avatar_url": "https://cdn.discordapp.com/avatars/738571182101626930/72ad643b1ee4036cd79f8c457ed1d420.png",
   "content": "",
+  "components": [
+      {
+          "type": 1,
+          "components": [
+              {
+                  "type": 2,
+                  "label": "Fabric",
+                  "style": 5,
+                  "url": "https://modrinth.com/mod/resourceful-lib/version/${fabric_link}"
+              },
+              {
+                  "type": 2,
+                  "label": "NeoForge",
+                  "style": 5,
+                  "url": "https://modrinth.com/mod/resourceful-lib/version/${neoforge_link}"
+              }
+          ]
+
+      }
+  ],
   "embeds": [
     {
       "title": "Resourceful Lib",
       "color": 15296112,
-      "description": "A new nightly is available!",
+      "description": "A new update is available!",
       "timestamp": "",
       "author": {
         "name": "Team Resourceful",
@@ -32,22 +52,19 @@
         },
         {
           "name": "Minecraft Version",
-          "value": "${mc_version}"
+          "value": "${minecraft}"
         },
         {
           "name": "NeoForge Version",
-          "value": "${neoforge_version}"
+          "value": "${neoforge}",
+          "inline": true
         },
         {
           "name": "Fabric Version",
-          "value": "${fabric_version}"
-        },
-        {
-          "name": "Download",
-          "value": "[Forge](https://nexus.resourcefulbees.com/repository/maven-public/com/teamresourceful/resourcefullib/resourcefullib-neoforge-${mc_version}/${version}/resourcefullib-forge-${mc_version}-${version}.jar)\\n[Fabric](https://nexus.resourcefulbees.com/repository/maven-public/com/teamresourceful/resourcefullib/resourcefullib-fabric-${mc_version}/${version}/resourcefullib-fabric-${mc_version}-${version}.jar)"
+          "value": "${fabric}",
+          "inline": true
         }
       ]
     }
-  ],
-  "components": []
+  ]
 }
