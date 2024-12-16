@@ -10,7 +10,7 @@ yabn = "1.0.3"
 bytecodecs = "1.1.2"
 
 # Plugins
-resourceful-loom = "0.0.1-beta.35"
+resourceful-loom = "1.0.0"
 
 [libraries]
 
@@ -19,5 +19,5 @@ bytecodecs = { module = "com.teamresourceful:bytecodecs", version.ref = "bytecod
 
 [plugins]
 
-resourceful-loom = { id = "com.teamresourceful.defaults.loom", version.ref = "resourceful-loom" }
+resourceful-loom = { id = "com.teamresourceful.plugins.loom", version.ref = "resourceful-loom" }
 resourceful-gradle = { id = "com.teamresourceful.resourcefulgradle" }
